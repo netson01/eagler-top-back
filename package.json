@@ -1,0 +1,48 @@
+{
+    "name": "backend",
+    "version": "1.0.0",
+    "description": "The backend for the Eaglercraft server list.",
+    "main": "dist/index.js",
+    "scripts": {
+        "build": "npx tsc",
+        "dev": "npm run build && npm start",
+        "start": "node ."
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/darverdevs/EaglerServerList.git"
+    },
+    "keywords": [
+        "eaglercraft",
+        "prisma",
+        "typescript",
+        "express"
+    ],
+    "author": "ColdDev, primitt",
+    "license": "GPL-3.0",
+    "bugs": {
+        "url": "https://github.com/darverdevs/EaglerServerList/issues"
+    },
+    "homepage": "https://github.com/darverdevs/EaglerServerList#readme",
+    "dependencies": {
+        "@prisma/client": "^4.13.0",
+        "axios": "^1.4.0",
+        "cookie-parser": "^1.4.6",
+        "cors": "^2.8.5",
+        "dotenv": "^16.0.3",
+        "express": "^4.18.2",
+        "express-rate-limit": "^6.7.0",
+        "logging": "^3.3.0",
+        "moment": "^2.29.4",
+        "prisma": "^4.13.0",
+        "ws": "^8.13.0"
+    },
+    "devDependencies": {
+        "@types/cookie-parser": "^1.4.3",
+        "@types/cors": "^2.8.13",
+        "@types/express": "^4.17.17",
+        "@types/node": "^20.0.0",
+        "@types/ws": "^8.5.4",
+        "typescript": "^5.0.4"
+    }
+}

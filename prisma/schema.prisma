@@ -1,0 +1,100 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  uuid      String         @unique @default(uuid())
+  discordId String         @unique
+  username  String
+  createdAt DateTime       @default(now())
+  updatedAt DateTime       @default(now())
+  servers   Server[]
+  avatar    String
+  admin     Boolean        @default(false)
+  banned    Boolean        @default(false)
+  banReason String?
+  cooldowns VoteCooldown[]
+  comments  Comment[]
+
+  @@map("users")
+}
+
+model Server {
+  uuid        String     @unique @default(uuid())
+  user        User       @relation(fields: [owner], references: [uuid])
+  disabled    Boolean    @default(false)
+  verified    Boolean    @default(false)
+  approved    Boolean    @default(false)
+  owner       String
+  name        String
+  description String
+  address     String
+  discord     String?    @unique
+  tags        String[]
+  version     String     @default("1.5")
+  votes       Int        @default(0)
+  code        String     @unique
+  comments    Comment[]
+  analytics   Analytic[]
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @default(now())
+
+  @@map("servers")
+}
+
+model Comment {
+  id       Int      @id @default(autoincrement())
+  server   Server   @relation(fields: [serverId], references: [uuid])
+  serverId String
+  content  String
+  poster   User     @relation(fields: [posterId], references: [uuid])
+  posterId String
+  postedAt DateTime @default(now())
+
+  @@map("comments")
+}
+
+model Session {
+  id            Int      @id @default(autoincrement())
+  sessionString String   @unique
+  expiresAt     DateTime
+  userId        String
+
+  @@map("sessions")
+}
+
+model VoteCooldown {
+  uuid      String   @unique @default(uuid())
+  user      User     @relation(fields: [userId], references: [uuid])
+  userId    String
+  serverId  String
+  expiresAt DateTime
+
+  @@map("voteCooldowns")
+}
+
+model Analytic {
+  id        Int          @id @default(autoincrement())
+  type      AnalyticType
+  serverId  String
+  server    Server       @relation(fields: [serverId], references: [uuid])
+  data      String
+  createdAt DateTime     @default(now())
+
+  @@map("analytics")
+}
+
+enum AnalyticType {
+  PLAYER_COUNT
+  UPTIME
+
+  @@map("analytictypes")
+}

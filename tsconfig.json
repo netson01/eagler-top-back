@@ -1,0 +1,14 @@
+{
+    "compilerOptions": {
+        "target": "esnext",
+        "module": "commonjs",
+        "esModuleInterop": true,
+        "forceConsistentCasingInFileNames": true,
+        "strict": true,
+        "moduleResolution": "node",
+        "outDir": "dist",
+        "experimentalDecorators": true,
+        "strictPropertyInitialization": false,
+        "strictNullChecks": false
+    }
+}
