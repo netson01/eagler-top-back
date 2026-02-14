@@ -17,7 +17,6 @@ COPY --from=deps /app/dist ./dist
 COPY --from=deps /app/prisma ./prisma
 COPY --from=deps /app/package-lock.json ./package-lock.json
 COPY --from=deps /app/package.json ./package.json
-COPY --from=deps /app/.env ./.env
 
 RUN npm ci --only=production
 RUN npx prisma generate
