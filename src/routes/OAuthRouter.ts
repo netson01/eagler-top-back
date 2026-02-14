@@ -51,6 +51,10 @@ router.get("/", async (req: Request, res: Response) => {
         if (session) {
             res.cookie("session", session.sessionString, {
                 expires: session.expiresAt,
+                httpOnly: true,
+                secure: true,
+                sameSite: 'none',
+                domain: '.railway.app'
             });
 
             await prisma.session.update({
@@ -78,6 +82,10 @@ router.get("/", async (req: Request, res: Response) => {
 
         res.cookie("session", session.sessionString, {
             expires: session.expiresAt,
+            httpOnly: true,
+            secure: true,
+            sameSite: 'none',
+            domain: '.railway.app'
         });
 
         return res.json({
@@ -187,6 +195,10 @@ router.get("/", async (req: Request, res: Response) => {
         });
         res.cookie("session", session.sessionString, {
             expires: session.expiresAt,
+            httpOnly: true,
+            secure: true,
+            sameSite: 'none',
+            domain: '.railway.app'
         });
         return res.redirect(process.env.FRONTEND_URI);
     }
@@ -202,6 +214,10 @@ router.get("/", async (req: Request, res: Response) => {
         .then((session) => {
             res.cookie("session", session.sessionString, {
                 expires: session.expiresAt,
+                httpOnly: true,
+                secure: true,
+                sameSite: 'none',
+                domain: '.railway.app'
             });
             return res.redirect(process.env.FRONTEND_URI);
         })
@@ -223,7 +239,12 @@ router.get("/logout", User, async (req: Request, res: Response) => {
         },
     });
 
-    res.clearCookie("session");
+    res.clearCookie("session", {
+        httpOnly: true,
+        secure: true,
+        sameSite: 'none',
+        domain: '.railway.app'
+    });
 
     return res.json({
         success: true,
