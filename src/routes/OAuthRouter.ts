@@ -83,7 +83,6 @@ router.get("/", async (req: Request, res: Response) => {
             expires: session.expiresAt,
             httpOnly: true,
             secure: true,
-            sameSite: 'none',
             sameSite: 'none'
         });
 
